@@ -1,10 +1,10 @@
 import React from "react"
-import { createRoot } from "react-dom/client"
-import { HomePage, SalesPage } from "./site"
+import { createRoot, hydrateRoot } from "react-dom/client"
+import { HomePage } from "./site"
 import "./index.css"
 
-const isSalesPage = location.pathname.endsWith("/bicos-a-venda.html")
+const root = document.getElementById("root")!
+const app = <React.StrictMode><HomePage /></React.StrictMode>
 
-createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>{isSalesPage ? <SalesPage /> : <HomePage />}</React.StrictMode>
-)
+if (root.hasChildNodes()) hydrateRoot(root, app)
+else createRoot(root).render(app)

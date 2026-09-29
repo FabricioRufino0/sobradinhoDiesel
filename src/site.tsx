@@ -1,10 +1,8 @@
 import { useState } from "react"
-import { ArrowUpRight, Menu } from "lucide-react"
+import { ArrowDown, ArrowUpRight, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 
@@ -32,13 +30,12 @@ function PumpIcon() {
   return <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 22V11h9v11M37 22V8h8v14M14 22h36l6 7v21H8V29l6-7zM8 34H3v10h5M56 34h5v10h-5M16 50v7h10v-7M39 50v7h10v-7" /><circle cx="32" cy="37" r="11" /><circle cx="32" cy="37" r="4" /></svg>
 }
 
-function SiteHeader({ sales = false }: { sales?: boolean }) {
+function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const links = [
-    { label: sales ? "Início" : "Serviços", href: sales ? "/" : "#servicos" },
-    ...(sales ? [{ label: "Serviços", href: "/#servicos" }] : []),
-    { label: "Bicos à venda", href: "/bicos-a-venda.html", current: sales },
-    { label: "Contato", href: sales ? "/#contato" : "#contato" },
+    { label: "Serviços", href: "#servicos" },
+    { label: "Bicos à venda", href: "#pecas" },
+    { label: "Contato", href: "#contato" },
   ]
 
   return <header className="site-header" id="inicio">
@@ -48,19 +45,19 @@ function SiteHeader({ sales = false }: { sales?: boolean }) {
         <span>SOBRADINHO <small>INJEÇÃO DIESEL</small></span>
       </a>
       <nav className="ml-auto hidden items-center gap-8 lg:flex" aria-label="Navegação principal">
-        {links.map(link => <a key={link.label} href={link.href} aria-current={link.current ? "page" : undefined} className="nav-link">{link.label}</a>)}
+        {links.map(link => <a key={link.label} href={link.href} className="nav-link">{link.label}</a>)}
       </nav>
-      <a className={cn(buttonVariants({ size: "lg" }), "ml-auto hidden lg:inline-flex lg:ml-3")} href={sales ? askPart : askGeneral} target="_blank" rel="noopener noreferrer">
+      <a className={cn(buttonVariants({ size: "lg" }), "ml-auto hidden lg:inline-flex lg:ml-3")} href={askGeneral} target="_blank" rel="noopener noreferrer">
         Falar no WhatsApp <ArrowUpRight data-icon="inline-end" />
       </a>
-      <a className={cn(buttonVariants({ size: "sm" }), "ml-auto hidden sm:inline-flex lg:hidden")} href={sales ? askPart : askGeneral} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a className={cn(buttonVariants({ size: "sm" }), "ml-auto hidden sm:inline-flex lg:hidden")} href={askGeneral} target="_blank" rel="noopener noreferrer">WhatsApp</a>
       <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-        <SheetTrigger className={cn(buttonVariants({ variant: "ghost", size: "icon-lg" }), "ml-auto lg:hidden")} aria-label="Abrir menu"><Menu /></SheetTrigger>
+        <SheetTrigger className={cn(buttonVariants({ variant: "ghost", size: "icon-lg" }), "ml-auto mr-3 lg:hidden")} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}><Menu /></SheetTrigger>
         <SheetContent side="right" className="w-[min(86vw,360px)]">
           <SheetHeader><SheetTitle>Navegação</SheetTitle><SheetDescription className="sr-only">Páginas e seções do site</SheetDescription></SheetHeader>
           <nav className="flex flex-col gap-1 px-4" aria-label="Navegação móvel">
-            {links.map(link => <a key={link.label} href={link.href} aria-current={link.current ? "page" : undefined} onClick={() => setMenuOpen(false)} className="mobile-nav-link">{link.label}</a>)}
-            <a href={sales ? askPart : askGeneral} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "lg" }), "mt-5 justify-center")}>Falar no WhatsApp <ArrowUpRight data-icon="inline-end" /></a>
+            {links.map(link => <a key={link.label} href={link.href} onClick={() => setMenuOpen(false)} className="mobile-nav-link">{link.label}</a>)}
+            <a href={askGeneral} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "lg" }), "mt-5 justify-center")}>Falar no WhatsApp <ArrowUpRight data-icon="inline-end" /></a>
           </nav>
         </SheetContent>
       </Sheet>
@@ -68,12 +65,12 @@ function SiteHeader({ sales = false }: { sales?: boolean }) {
   </header>
 }
 
-function SiteFooter({ sales = false }: { sales?: boolean }) {
+function SiteFooter() {
   return <footer className="bg-brand-ink text-white">
     <div className="wrap grid items-center gap-6 py-8 sm:grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_auto_auto]">
       <a href="/" aria-label="Sobradinho Injeção Diesel, página inicial" className="w-fit"><img className="footer-logo" src="/assets/logo-sobradinho.png" alt="Sobradinho Injeção Diesel" width="1025" height="825" /></a>
       <p className="text-sm text-white/65">Sobradinho, Distrito Federal</p>
-      <a href={sales ? "/" : "#inicio"} className="text-sm font-bold text-white/80 hover:text-white">{sales ? "Voltar à página inicial" : "Voltar ao topo"}</a>
+      <a href="#inicio" className="text-sm font-bold text-white/80 hover:text-white">Voltar ao topo</a>
       <small className="text-xs text-white/55">© {new Date().getFullYear()} Sobradinho Injeção Diesel.</small>
     </div>
   </footer>
@@ -98,17 +95,25 @@ export function HomePage() {
     <SiteHeader />
     <main id="conteudo">
       <section className="hero" aria-labelledby="hero-title">
-        <div className="wrap hero-grid">
+        <img className="hero-backdrop" src="/assets/picapes-modelos-diesel.webp" alt="" width="1672" height="941" fetchPriority="high" />
+        <div className="wrap hero-shell">
           <div className="hero-copy">
             <p className="overline text-signal">INJEÇÃO DIESEL · SOBRADINHO, DF</p>
             <h1 id="hero-title">Reparo de bicos e bombas diesel</h1>
             <p className="hero-lead">Avaliamos sua peça e mostramos o resultado antes de qualquer reparo.</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href={askService} target="_blank" rel="noopener noreferrer" className={buttonVariants({ size: "lg" })}>Solicitar atendimento <ArrowUpRight data-icon="inline-end" /></a>
-              <a href="/bicos-a-venda.html" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "hero-secondary")}>Ver bicos à venda</a>
+              <a href={askService} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "lg" }), "hero-primary")}>Solicitar atendimento <ArrowUpRight data-icon="inline-end" /></a>
+              <a href="#pecas" className="hero-link">Bicos à venda <ArrowUpRight aria-hidden="true" /></a>
             </div>
           </div>
-          <div className="hero-image"><img src="/assets/picapes-modelos-diesel.webp" alt="Composição ilustrativa de três picapes: Mitsubishi prata, Nissan azul e Volkswagen branca diante de uma oficina" width="1672" height="941" fetchPriority="high" /></div>
+          <div className="hero-bottom">
+            <ul className="hero-facts" aria-label="Especialidades e localização">
+              <li><strong>Bicos injetores</strong><span>Teste e reparo</span></li>
+              <li><strong>Bombas diesel</strong><span>Alta e injetoras</span></li>
+              <li><strong>Sobradinho, DF</strong><span>Atendimento local</span></li>
+            </ul>
+            <a className="hero-scroll" href="#marcas"><span>Conheça as marcas</span><ArrowDown aria-hidden="true" /></a>
+          </div>
         </div>
       </section>
 
@@ -133,9 +138,9 @@ export function HomePage() {
 
       <section className="section-pad" id="pecas" aria-labelledby="parts-title">
         <div className="wrap parts-teaser">
-          <div><p className="overline text-signal">BICOS À VENDA</p><h2 id="parts-title" className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">Bicos injetores à venda</h2><p className="mt-5 max-w-xl text-base leading-relaxed text-white/75">Bicos diesel recondicionados e modelos novos a preço de atacado. Consulte as opções na página de vendas.</p></div>
-          <a href="/bicos-a-venda.html" target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "lg" }), "justify-self-start")}>
-            Abrir bicos à venda <ArrowUpRight data-icon="inline-end" /><span className="sr-only"> (abre em nova aba)</span>
+          <div><p className="overline text-signal">BICOS À VENDA</p><h2 id="parts-title" className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">Bicos injetores à venda</h2><p className="mt-5 max-w-xl text-base leading-relaxed text-white/75">Temos bicos diesel novos e recondicionados. Consulte disponibilidade e valores pelo WhatsApp.</p></div>
+          <a href={askPart} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "lg" }), "justify-self-start")}>
+            Consultar pelo WhatsApp <ArrowUpRight data-icon="inline-end" /><span className="sr-only"> (abre em nova aba)</span>
           </a>
         </div>
       </section>
@@ -148,26 +153,5 @@ export function HomePage() {
       </section>
     </main>
     <SiteFooter />
-  </>
-}
-
-export function SalesPage() {
-  return <>
-    <a href="#conteudo" className="skip-link">Ir para o conteúdo</a>
-    <SiteHeader sales />
-    <main id="conteudo">
-      <section className="sales-hero" aria-labelledby="sales-title"><div className="wrap"><p className="overline text-signal">SOBRADINHO INJEÇÃO DIESEL</p><h1 id="sales-title" className="mt-4 max-w-3xl text-5xl font-extrabold tracking-tight sm:text-6xl">Bicos injetores à venda</h1><p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/75">Bicos diesel recondicionados e modelos novos a preço de atacado. Consulte a disponibilidade da peça que procura.</p></div></section>
-      <section className="section-pad bg-muted/40" aria-labelledby="availability-title"><div className="wrap">
-        <Empty className="sales-empty border bg-card py-12">
-          <EmptyHeader><EmptyTitle><h2 id="availability-title" className="text-2xl font-extrabold">Consulte uma peça</h2></EmptyTitle><EmptyDescription>Envie a marca e o código ou aplicação. Informamos as opções e valores disponíveis.</EmptyDescription></EmptyHeader>
-          <EmptyContent><a href={askPart} target="_blank" rel="noopener noreferrer" className={buttonVariants({ size: "lg" })}>Consultar pelo WhatsApp <ArrowUpRight data-icon="inline-end" /></a></EmptyContent>
-        </Empty>
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          <Card><CardHeader><CardTitle><h2 className="text-xl font-extrabold">Peças originais</h2></CardTitle><CardDescription className="text-base leading-relaxed">Também vendemos peças originais Delphi, Bosch e Denso.</CardDescription></CardHeader></Card>
-          <Card><CardHeader><Badge variant="secondary" className="mb-2">Bicos vendidos</Badge><CardTitle><h2 className="text-xl font-extrabold">Garantia e suporte</h2></CardTitle><CardDescription className="text-base leading-relaxed">Os bicos vendidos têm garantia de 3 meses ou 10 mil km. Se tiver dúvidas sobre valores, testes ou peças, fale conosco. Damos suporte após a compra.</CardDescription></CardHeader></Card>
-        </div>
-      </div></section>
-    </main>
-    <SiteFooter sales />
   </>
 }
