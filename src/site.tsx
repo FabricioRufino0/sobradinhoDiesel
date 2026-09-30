@@ -45,7 +45,7 @@ function SiteHeader() {
   return <header className="site-header" id="inicio">
     <div className="wrap flex h-full items-center gap-5">
       <a className="brand-link" href="/" aria-label="Sobradinho Injeção Diesel, página inicial">
-        <span className="brand-symbol" aria-hidden="true"><img src="/assets/logo-sobradinho-quadrada.png" alt="" width="1254" height="1254" /></span>
+        <span className="brand-symbol" aria-hidden="true"><img src="/assets/logo-sobradinho-transparente.png" alt="" width="1254" height="1254" /></span>
         <span className="brand-name">SOBRADINHO <small>INJEÇÃO DIESEL</small></span>
       </a>
       <nav className="ml-auto hidden items-center gap-8 lg:flex" aria-label="Navegação principal">
@@ -72,7 +72,7 @@ function SiteHeader() {
 function SiteFooter() {
   return <footer className="bg-brand-ink text-white">
     <div className="wrap grid items-center gap-6 py-8 sm:grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_auto_auto]">
-      <a href="/" aria-label="Sobradinho Injeção Diesel, página inicial" className="w-fit"><img className="footer-logo" src="/assets/logo-sobradinho-quadrada.png" alt="Sobradinho Injeção Diesel" width="1254" height="1254" /></a>
+      <a href="/" aria-label="Sobradinho Injeção Diesel, página inicial" className="w-fit"><img className="footer-logo" src="/assets/logo-sobradinho-transparente.png" alt="Sobradinho Injeção Diesel" width="1254" height="1254" /></a>
       <p className="text-sm text-white/65">Sobradinho, Distrito Federal</p>
       <a href="#inicio" className="text-sm font-bold text-white/80 hover:text-white">Voltar ao topo</a>
       <small className="text-xs text-white/55">© {new Date().getFullYear()} Sobradinho Injeção Diesel.</small>

@@ -194,7 +194,7 @@ section[id] { scroll-margin-top: 5rem; }
 .contact-card { border: 1px solid var(--border); border-radius: 1rem; background: var(--card); box-shadow: 0 18px 42px -34px rgb(20 43 58 / 40%); }
 .contact-card[id] { scroll-margin-top: 6rem; }
 .contact-card h3 { font-size: 1.7rem; letter-spacing: .02em; }
-.footer-logo { width: 9rem; height: 9rem; }
+.footer-logo { width: 10rem; height: 10rem; filter: brightness(0) invert(1); }
 
 .nav-link, .mobile-nav-link, .hero a, .service-card a, .parts-teaser a, .contact-card a, footer a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
 .service-card a:hover, .contact-card a:hover { color: #0e4c88; }

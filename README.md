@@ -20,7 +20,8 @@ Depois de apontar o DNS e publicar com HTTPS, cadastre o domínio no Google Sear
 
 - `public/assets/logo-sobradinho.png`: logo horizontal original, preservada como referência da identidade.
 - `public/assets/simbolo-injetor-sem-derivacao.png`: símbolo anterior do cabeçalho, mantido no repositório.
-- `public/assets/logo-sobradinho-quadrada.png`: imagem quadrada de 1254 × 1254 px enviada pelo cliente; o cabeçalho mostra o bico da imagem, o rodapé mostra a composição completa e os dados estruturados apontam para este arquivo.
+- `public/assets/logo-sobradinho-quadrada.png`: imagem quadrada original de 1254 × 1254 px enviada pelo cliente, preservada como referência.
+- `public/assets/logo-sobradinho-transparente.png`: versão sem fundo da imagem enviada; usada no cabeçalho, no rodapé e nos dados estruturados. No rodapé, o traço aparece branco sobre o fundo azul.
 - `public/assets/favicon-sobradinho.png`: ícone quadrado de 256 px do injetor, otimizado para navegadores e buscadores.
 - `public/assets/picapes-modelos-diesel.webp`: composição ilustrativa criada em 25/09/2026 a partir de referências enviadas pelo cliente (Amarok branca, Nissan azul e Mitsubishi prata). Não representa a oficina nem veículos de clientes. O texto alternativo também identifica a imagem como ilustração.
 - Logos de Bosch, DENSO, John Deere, Siemens e Delphi em `public/assets/`. A lista atendida e o contexto de uso público precisam de confirmação com a oficina, especialmente se “Siemens” se refere a Siemens VDO.
