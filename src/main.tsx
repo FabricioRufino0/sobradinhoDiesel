@@ -17,7 +17,10 @@ document.addEventListener("click", event => {
 
   const url = new URL(link.href, window.location.href)
   const contactMethod = url.protocol === "tel:" ? "phone" : url.hostname === "wa.me" ? "whatsapp" : undefined
-  if (contactMethod) window.gtag?.("event", "contact_click", { contact_method: contactMethod })
+  if (contactMethod && window.gtag) {
+    window.gtag("event", "contact_click", { contact_method: contactMethod })
+    window.gtag("event", "conversion", { send_to: "AW-18483826712/iK0dCMTCrIwdEJig4-1E" })
+  }
 }, true)
 
 const root = document.getElementById("root")!
