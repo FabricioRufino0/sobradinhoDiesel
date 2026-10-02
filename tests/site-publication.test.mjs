@@ -27,7 +27,15 @@ test("production HTML contains the main page content before JavaScript runs", ()
 
 test("production HTML initializes the Sobradinho Diesel GA4 and Ads destinations exactly once", () => {
   assert.equal(
+    [...html.matchAll(/https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+/g)].length,
+    1,
+  )
+  assert.equal(
     [...html.matchAll(/https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-STMQ0Z5S1C/g)].length,
+    1,
+  )
+  assert.equal(
+    [...html.matchAll(/gtag\('config',\s*'G-[A-Z0-9]+'\)/g)].length,
     1,
   )
   assert.match(html, /gtag\('config',\s*'G-STMQ0Z5S1C'\)/)
