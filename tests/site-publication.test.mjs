@@ -38,7 +38,7 @@ test("production HTML initializes the Sobradinho Diesel GA4 and Ads destinations
 })
 
 test("page metadata consistently names the canonical business page", () => {
-  assert.match(html, /<title>Sobradinho Injeção Diesel \| Reparo de bicos e bombas<\/title>/)
+  assert.match(html, /<title>Reparo de bicos e bombas diesel \| Sobradinho Injeção Diesel<\/title>/)
   assert.match(html, /<meta name="description" content="[^"]+"\s*\/>/)
   assert.match(html, new RegExp(`<link rel="canonical" href="${canonicalUrl.replaceAll(".", "\\.")}"`))
   assert.match(html, /property="og:url" content="https:\/\/sobradinhodiesel\.com\.br\/"/)

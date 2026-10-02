@@ -8,7 +8,7 @@ A home apresenta reparo de bicos e bombas diesel, marcas, serviços, consulta de
 
 O conteúdo segue o briefing do Segundo Cérebro. Telefone, endereço e foco dos serviços foram confirmados. A lista de marcas e aplicações ainda precisa de validação final com a oficina; os logos não afirmam representação, autorização ou parceria. A garantia de 3 meses ou 10 mil km se aplica somente aos bicos vendidos; confirmar as condições completas antes de detalhá-la no site.
 
-Os serviços explicam que a oficina testa a peça antes do reparo, mostra o resultado para decisão do cliente, filma e registra o trabalho e permite acompanhar os testes presencialmente. A oficina atende bombas de alta e injetoras.
+Os serviços explicam que a oficina testa a peça antes do reparo, mostra o resultado para decisão do cliente e documenta os testes e reparos. A oficina atende bombas de alta e injetoras. Não há visitas para acompanhar testes ou conhecer a oficina.
 
 ## SEO e publicação
 
@@ -18,7 +18,10 @@ Depois de apontar o DNS e publicar com HTTPS, cadastre o domínio no Google Sear
 
 ## Imagens, marcas e fontes
 
-- `public/assets/logo-sobradinho.png`: logo fornecida pelo cliente; `simbolo-injetor.png` usa o símbolo dessa arte no cabeçalho.
+- `public/assets/logo-sobradinho.png`: logo horizontal original, preservada como referência da identidade.
+- `public/assets/simbolo-injetor-sem-derivacao.png`: símbolo anterior do cabeçalho, mantido no repositório.
+- `public/assets/logo-sobradinho-quadrada.png`: imagem quadrada original de 1254 × 1254 px enviada pelo cliente, preservada como referência.
+- `public/assets/logo-sobradinho-transparente.png`: versão sem fundo da imagem enviada; usada no cabeçalho, no rodapé e nos dados estruturados. No rodapé, o traço aparece branco sobre o fundo azul.
 - `public/assets/favicon-sobradinho.png`: ícone quadrado de 256 px do injetor, otimizado para navegadores e buscadores.
 - `public/assets/picapes-modelos-diesel.webp`: composição ilustrativa criada em 25/09/2026 a partir de referências enviadas pelo cliente (Amarok branca, Nissan azul e Mitsubishi prata). Não representa a oficina nem veículos de clientes. O texto alternativo também identifica a imagem como ilustração.
 - Logos de Bosch, DENSO, John Deere, Siemens e Delphi em `public/assets/`. A lista atendida e o contexto de uso público precisam de confirmação com a oficina, especialmente se “Siemens” se refere a Siemens VDO.
