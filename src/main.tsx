@@ -1,27 +1,10 @@
 import React from "react"
 import { createRoot, hydrateRoot } from "react-dom/client"
 import { HomePage } from "./site"
+import { installContactConversionTracking } from "./contactConversion"
 import "./index.css"
 
-declare global {
-  interface Window {
-    gtag?: (command: "event", eventName: string, parameters: Record<string, string>) => void
-  }
-}
-
-document.addEventListener("click", event => {
-  if (!(event.target instanceof Element)) return
-
-  const link = event.target.closest<HTMLAnchorElement>("a[href]")
-  if (!link) return
-
-  const url = new URL(link.href, window.location.href)
-  const contactMethod = url.protocol === "tel:" ? "phone" : url.hostname === "wa.me" ? "whatsapp" : undefined
-  if (contactMethod && window.gtag) {
-    window.gtag("event", "contact_click", { contact_method: contactMethod })
-    window.gtag("event", "conversion", { send_to: "AW-18483826712/iK0dCMTCrIwdEJig4-1E" })
-  }
-}, true)
+installContactConversionTracking(document, window.gtag, (href) => window.location.assign(href))
 
 const root = document.getElementById("root")!
 const app = <React.StrictMode><HomePage /></React.StrictMode>

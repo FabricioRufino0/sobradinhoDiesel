@@ -25,8 +25,28 @@ test("production HTML contains the main page content before JavaScript runs", ()
   assert.doesNotMatch(html, /id="root">\s*<\/div>/)
 })
 
+test("production HTML initializes the Sobradinho Diesel GA4 and Ads destinations exactly once", () => {
+  assert.equal(
+    [...html.matchAll(/https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+/g)].length,
+    1,
+  )
+  assert.equal(
+    [...html.matchAll(/https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-STMQ0Z5S1C/g)].length,
+    1,
+  )
+  assert.equal(
+    [...html.matchAll(/gtag\('config',\s*'G-[A-Z0-9]+'\)/g)].length,
+    1,
+  )
+  assert.match(html, /gtag\('config',\s*'G-STMQ0Z5S1C'\)/)
+  assert.equal(
+    [...html.matchAll(/gtag\('config',\s*'AW-18483826712'\)/g)].length,
+    1,
+  )
+})
+
 test("page metadata consistently names the canonical business page", () => {
-  assert.match(html, /<title>Sobradinho Injeção Diesel \| Reparo de bicos e bombas<\/title>/)
+  assert.match(html, /<title>Reparo de bicos e bombas diesel \| Sobradinho Injeção Diesel<\/title>/)
   assert.match(html, /<meta name="description" content="[^"]+"\s*\/>/)
   assert.match(html, new RegExp(`<link rel="canonical" href="${canonicalUrl.replaceAll(".", "\\.")}"`))
   assert.match(html, /property="og:url" content="https:\/\/sobradinhodiesel\.com\.br\/"/)
