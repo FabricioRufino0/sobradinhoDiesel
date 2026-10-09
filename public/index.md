@@ -2,7 +2,7 @@
 
 Site institucional: [sobradinhodiesel.com.br](https://sobradinhodiesel.com.br/).
 
-Oficina em Sobradinho, Distrito Federal, especializada no reparo de bicos injetores e bombas diesel. A equipe testa a peça, mostra o resultado antes do reparo e documenta os testes e serviços.
+Oficina em Sobradinho, Distrito Federal, especializada no reparo de bicos injetores e bombas diesel. A oficina testa a peça, mostra o resultado antes do reparo e documenta os testes e serviços.
 
 ## Serviços
 

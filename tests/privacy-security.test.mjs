@@ -47,6 +47,21 @@ test("consent choices are read and persisted as granted or denied", async () => 
   assert.equal(consent.readConsent(storage), null)
 })
 
+test("blocked localStorage access does not break consent handling", async () => {
+  const consent = await consentModulePromise
+  assert.ok(consent, "expected consent storage helpers to exist")
+
+  let storageAccessAttempts = 0
+  const blockedStorage = () => {
+    storageAccessAttempts += 1
+    throw new Error("Storage access denied")
+  }
+  assert.equal(consent.readConsent(blockedStorage), null)
+  assert.equal(storageAccessAttempts, 1)
+  assert.doesNotThrow(() => consent.saveConsent(blockedStorage, "granted"))
+  assert.equal(storageAccessAttempts, 2)
+})
+
 test("Google tags use the verified GA4 ID and default consent to denied", async () => {
   const googleTag = await googleTagModulePromise
   assert.ok(googleTag, "expected the consent-gated Google tag loader to exist")
@@ -111,6 +126,8 @@ test("cookie banner offers acceptance, refusal, and a way to reopen preferences"
   assert.match(component, /Recusar cookies opcionais/)
   assert.match(component, /Preferências de cookies/)
   assert.match(component, /salvarConsentimento|saveConsent/)
+  assert.match(component, /readConsent\(\(\) => window\.localStorage\)/)
+  assert.match(component, /saveConsent\(\(\) => window\.localStorage/)
 })
 
 test("contact links navigate normally when consent is denied", () => {
@@ -163,4 +180,34 @@ test("Cloudflare static assets publish all seven security headers and a restrict
   assert.match(headers, /Permissions-Policy:/i)
   assert.match(headers, new RegExp(`sha256-${jsonLdHash.replaceAll("+", "\\+").replaceAll("/", "\\/")}`))
   assert.doesNotMatch(headers, /script-src[^\r\n]*'unsafe-inline'/i)
+})
+
+test("CSP allows Google Analytics and Ads resources when consent is granted", async () => {
+  const headers = await readOrEmpty(join(projectRoot, "public/_headers"))
+  const csp = headers.match(/Content-Security-Policy:\s*([^\r\n]+)/i)?.[1]
+  assert.ok(csp, "expected a Content-Security-Policy header")
+
+  const directives = Object.fromEntries(csp.split(";").map((part) => {
+    const [name, ...sources] = part.trim().split(/\s+/)
+    return [name, sources]
+  }))
+  const requiredSources = [
+    ["script-src", "https://www.googletagmanager.com"],
+    ["script-src", "https://www.googleadservices.com"],
+    ["script-src", "https://www.google.com"],
+    ["img-src", "https://*.google-analytics.com"],
+    ["img-src", "https://*.google.com"],
+    ["img-src", "https://www.googleadservices.com"],
+    ["img-src", "https://pagead2.googlesyndication.com"],
+    ["connect-src", "https://*.google-analytics.com"],
+    ["connect-src", "https://*.google.com"],
+    ["connect-src", "https://www.googleadservices.com"],
+    ["connect-src", "https://pagead2.googlesyndication.com"],
+    ["connect-src", "https://ad.doubleclick.net"],
+    ["frame-src", "https://www.googletagmanager.com"],
+  ]
+
+  for (const [directive, source] of requiredSources) {
+    assert.ok(directives[directive]?.includes(source), `missing ${source} from ${directive}`)
+  }
 })

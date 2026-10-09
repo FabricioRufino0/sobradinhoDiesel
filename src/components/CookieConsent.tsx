@@ -7,13 +7,13 @@ export function CookieConsent() {
   const [preferencesOpen, setPreferencesOpen] = useState(false)
 
   useEffect(() => {
-    const savedChoice = readConsent(window.localStorage)
+    const savedChoice = readConsent(() => window.localStorage)
     setChoice(savedChoice)
     if (savedChoice === "granted") loadGoogleTags(document, window)
   }, [])
 
   function chooseConsent(nextChoice: ConsentChoice) {
-    saveConsent(window.localStorage, nextChoice)
+    saveConsent(() => window.localStorage, nextChoice)
     setChoice(nextChoice)
     setPreferencesOpen(false)
 

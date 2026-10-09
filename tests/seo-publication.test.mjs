@@ -27,6 +27,8 @@ test("Markdown homepage summarizes confirmed business details", async () => {
 
   assert.match(markdown, /sobradinhodiesel\.com\.br/)
   assert.match(markdown, /reparo de bicos injetores e bombas diesel/i)
+  assert.match(markdown, /A oficina testa a peça/i)
+  assert.doesNotMatch(markdown, /a equipe testa/i)
   assert.match(markdown, /\+55 61 98162-0367/)
   assert.doesNotMatch(markdown, /horário de funcionamento|garantia de .*km/i)
 })
