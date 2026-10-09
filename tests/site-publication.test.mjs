@@ -25,6 +25,15 @@ test("production HTML contains the main page content before JavaScript runs", ()
   assert.doesNotMatch(html, /id="root">\s*<\/div>/)
 })
 
+test("homepage includes a factual FAQ for repair and parts enquiries", () => {
+  assert.match(html, /id="duvidas"/)
+  assert.match(html, /Como funciona a avaliação da peça\?/)
+  assert.match(html, /Quais bombas diesel são atendidas\?/)
+  assert.match(html, /A oficina vende bicos injetores\?/)
+  assert.match(html, /O que enviar na consulta pelo WhatsApp\?/)
+  assert.match(html, /A oficina documenta testes e reparos\?/)
+})
+
 test("production HTML defers the verified Analytics and Ads tags until consent", async () => {
   const googleTag = await readFile(join(projectRoot, "src/googleTag.ts"), "utf8").catch((error) => {
     if (error?.code === "ENOENT") return ""

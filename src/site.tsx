@@ -153,6 +153,37 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className="section-pad bg-muted/40" id="duvidas" aria-labelledby="faq-title">
+        <div className="wrap">
+          <div className="section-intro">
+            <div><p className="overline text-primary">PERGUNTAS FREQUENTES</p><h2 id="faq-title">Dúvidas sobre reparos diesel</h2></div>
+            <p>Veja como funciona a avaliação e quais informações ajudam a consultar o atendimento da oficina.</p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <article className="faq-item">
+              <h3>Como funciona a avaliação da peça?</h3>
+              <p>A oficina testa o bico injetor ou a bomba diesel e mostra o resultado antes de qualquer reparo. Assim, o cliente conhece a avaliação antes de decidir pelo serviço. Os testes e reparos realizados são documentados.</p>
+            </article>
+            <article className="faq-item">
+              <h3>Quais bombas diesel são atendidas?</h3>
+              <p>A oficina atende bombas diesel de alta e injetoras. Para confirmar o reparo de uma peça específica, informe o modelo ou o código no contato. A oficina verifica se aquele componente se enquadra no atendimento.</p>
+            </article>
+            <article className="faq-item">
+              <h3>A oficina vende bicos injetores?</h3>
+              <p>Há bicos diesel novos e recondicionados para consulta. Para saber a disponibilidade e os valores, envie o código ou a aplicação pelo WhatsApp e pergunte pelas opções da peça.</p>
+            </article>
+            <article className="faq-item">
+              <h3>O que enviar na consulta pelo WhatsApp?</h3>
+              <p>Informe a marca e o código da peça, quando disponível. Para consultar bicos à venda, inclua também a aplicação. Essas informações ajudam a oficina a confirmar o atendimento, a disponibilidade e os valores.</p>
+            </article>
+            <article className="faq-item">
+              <h3>A oficina documenta testes e reparos?</h3>
+              <p>Sim. Os testes realizados e o serviço executado são documentados. Antes de qualquer reparo, a oficina mostra o resultado da avaliação para que o cliente possa decidir se quer seguir. Para consultar uma peça, informe seu modelo ou código.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section className="section-pad bg-muted/40" id="contato" aria-labelledby="contact-title">
         <div className="wrap grid items-start gap-10 lg:grid-cols-2 lg:gap-20">
           <div><p className="overline text-primary">CONTATO E LOCALIZAÇÃO</p><h2 id="contact-title" className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">Fale com a oficina</h2><p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">Consulte valores, testes, peças e reparos pelo WhatsApp ou telefone.</p><div className="mt-7 flex flex-wrap items-center gap-4"><a href={askGeneral} target="_blank" rel="noopener noreferrer" className={buttonVariants({ size: "lg" })}><WhatsAppIcon /> Chamar no WhatsApp</a><a href="tel:+5561981620367" className="font-bold text-primary hover:underline">Ligar agora</a></div></div>

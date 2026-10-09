@@ -68,6 +68,18 @@ O `README.md` ainda diz que o domínio precisa ser publicado, embora já esteja 
 
 **Esperado:** auditoria móvel não reporta overflow; falhas acionáveis listadas no contexto foram resolvidas; erros de carregamento do GA4 desapareceram; o HTML 404 retorna status 404. Registrar limites: CrUX/RUM não é medido em laboratório, cobertura/posições exigem Search Console, e manifesto de agente é não aplicável enquanto não houver superfície invocável.
 
+## Task 4 — texto informativo da home
+
+**Motivo:** o crawl completo do domínio público, antes do deploy, também marcou a proporção texto/HTML em 5,5% como falha. Esse sinal não constava na lista inicial de correções. O usuário aprovou acrescentar uma seção curta de FAQ baseada apenas em fatos já confirmados.
+
+**Passos**
+
+1. Criar um teste que exija a seção de dúvidas e as perguntas aprovadas, confirmando primeiro a falha.
+2. Adicionar cinco respostas concisas sobre avaliação antes do reparo, bombas atendidas, bicos disponíveis, dados para consulta e documentação de testes/serviços.
+3. Rodar build e suíte completa; validar o HTML pré-renderizado, o conteúdo móvel, a proporção texto/HTML e a auditoria mobile.
+
+**Esperado:** a home apresenta informação útil sem fatos novos não confirmados; o limite de conteúdo da auditoria não fica mais em estado de falha; layout e suíte permanecem verdes.
+
 ## Revisão e integração
 
 - Revisão integral da diferença desde `origin/main` por revisor novo, com foco em privacidade/consentimento, CSP, compatibilidade de analytics e conteúdo factual.
