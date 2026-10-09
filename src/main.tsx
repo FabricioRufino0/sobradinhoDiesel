@@ -10,7 +10,7 @@ installContactConversionTracking(
   () => window.gtag,
   (href) => window.location.assign(href),
   setTimeout,
-  () => readConsent(window.localStorage) === "granted",
+  () => readConsent(() => window.localStorage) === "granted",
 )
 
 const root = document.getElementById("root")!

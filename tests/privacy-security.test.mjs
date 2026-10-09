@@ -62,6 +62,12 @@ test("blocked localStorage access does not break consent handling", async () => 
   assert.equal(storageAccessAttempts, 2)
 })
 
+test("contact conversion checks consent through the protected storage getter", async () => {
+  const main = await readOrEmpty(join(projectRoot, "src/main.tsx"))
+
+  assert.match(main, /readConsent\(\(\) => window\.localStorage\)/)
+})
+
 test("Google tags use the verified GA4 ID and default consent to denied", async () => {
   const googleTag = await googleTagModulePromise
   assert.ok(googleTag, "expected the consent-gated Google tag loader to exist")
