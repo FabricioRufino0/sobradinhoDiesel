@@ -188,15 +188,26 @@ test("Cloudflare static assets publish all seven security headers and a restrict
   assert.doesNotMatch(headers, /script-src[^\r\n]*'unsafe-inline'/i)
 })
 
-test("Cloudflare responses prevent automatic edge injection of the RUM beacon", async () => {
+test("Cloudflare disables RUM injection while preserving bundled asset caching", async () => {
   const headers = await readOrEmpty(join(projectRoot, "public/_headers"))
+  const rules = new Map()
+  let currentPath = null
 
-  const htmlCachePolicy = /Cache-Control:\s*public,\s*max-age=0,\s*must-revalidate,\s*no-transform/i
+  for (const line of headers.split(/\r?\n/)) {
+    if (!line.trim()) continue
+    if (!/^\s/.test(line)) {
+      currentPath = line.trim()
+      rules.set(currentPath, [])
+      continue
+    }
+    rules.get(currentPath)?.push(line.trim())
+  }
 
-  assert.match(headers, /^\/\r?\n\s+Cache-Control:.*no-transform/im)
-  assert.match(headers, /^\/\*\.html\r?\n\s+Cache-Control:.*no-transform/im)
-  assert.doesNotMatch(headers, /^\/\*\r?\n\s+Cache-Control:.*no-transform/im)
-  assert.match(headers, htmlCachePolicy)
+  assert.ok(rules.get("/*")?.includes("Cache-Control: public, max-age=0, must-revalidate, no-transform"))
+  assert.deepEqual(
+    rules.get("/assets/*")?.filter((line) => /^!?\s*Cache-Control:/i.test(line) || /^!\s*Cache-Control$/i.test(line)),
+    ["! Cache-Control", "Cache-Control: public, max-age=0, must-revalidate"],
+  )
 })
 
 test("CSP allows Google Analytics and Ads resources when consent is granted", async () => {
