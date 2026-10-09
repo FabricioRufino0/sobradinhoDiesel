@@ -5,6 +5,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { CookieConsent } from "@/components/CookieConsent"
 
 const whatsapp = "https://wa.me/5561981620367"
 const askService = `${whatsapp}?text=Ol%C3%A1%2C%20preciso%20de%20atendimento%20para%20um%20bico%20ou%20bomba%20diesel.`
@@ -160,5 +161,6 @@ export function HomePage() {
       </section>
     </main>
     <SiteFooter />
+    <CookieConsent />
   </>
 }

@@ -25,24 +25,18 @@ test("production HTML contains the main page content before JavaScript runs", ()
   assert.doesNotMatch(html, /id="root">\s*<\/div>/)
 })
 
-test("production HTML initializes the Sobradinho Diesel GA4 and Ads destinations exactly once", () => {
-  assert.equal(
-    [...html.matchAll(/https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+/g)].length,
-    1,
-  )
-  assert.equal(
-    [...html.matchAll(/https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-STMQ0Z5S1C/g)].length,
-    1,
-  )
-  assert.equal(
-    [...html.matchAll(/gtag\('config',\s*'G-[A-Z0-9]+'\)/g)].length,
-    1,
-  )
-  assert.match(html, /gtag\('config',\s*'G-STMQ0Z5S1C'\)/)
-  assert.equal(
-    [...html.matchAll(/gtag\('config',\s*'AW-18483826712'\)/g)].length,
-    1,
-  )
+test("production HTML defers the verified Analytics and Ads tags until consent", async () => {
+  const googleTag = await readFile(join(projectRoot, "src/googleTag.ts"), "utf8").catch((error) => {
+    if (error?.code === "ENOENT") return ""
+    throw error
+  })
+
+  assert.doesNotMatch(html, /googletagmanager\.com\/gtag\/js/)
+  assert.doesNotMatch(html, /G-STMQ0Z5S1C/)
+  assert.equal([...googleTag.matchAll(/G-Q0ET20C21G/g)].length, 1)
+  assert.equal([...googleTag.matchAll(/AW-18483826712/g)].length, 1)
+  assert.match(googleTag, /gtag\("config", GOOGLE_ANALYTICS_ID\)/)
+  assert.match(googleTag, /gtag\("config", GOOGLE_ADS_ID\)/)
 })
 
 test("page metadata consistently names the canonical business page", () => {

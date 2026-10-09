@@ -1,16 +1,6 @@
+import type { GoogleTagFunction } from "./googleTag"
+
 const adsContactConversion = "AW-18483826712/iK0dCMTCrIwdEJig4-1E"
-
-type GoogleTagEvent = (
-  command: "event",
-  eventName: string,
-  parameters: Record<string, string | number | (() => void)>,
-) => void
-
-declare global {
-  interface Window {
-    gtag: GoogleTagEvent
-  }
-}
 
 type ContactMethod = "phone" | "whatsapp"
 
@@ -35,9 +25,10 @@ export function isContactConversionLink(href: string): boolean {
 
 export function installContactConversionTracking(
   document: Pick<Document, "addEventListener">,
-  gtag: GoogleTagEvent,
+  getGtag: () => GoogleTagFunction | undefined,
   navigate: (href: string) => void,
   scheduleFallback: typeof setTimeout = setTimeout,
+  hasConsent: () => boolean = () => false,
 ): void {
   document.addEventListener("click", (event) => {
     const target = event.target as (Element | null)
@@ -48,6 +39,10 @@ export function installContactConversionTracking(
 
     const contactMethod = getContactMethod(link.href)
     if (!contactMethod) return
+
+    if (!hasConsent()) return
+    const gtag = getGtag()
+    if (!gtag) return
 
     gtag("event", "contact_click", {
       contact_method: contactMethod,

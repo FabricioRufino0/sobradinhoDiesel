@@ -27,7 +27,7 @@ test("tracks WhatsApp contact clicks without interrupting their new tab", () => 
     preventDefault: () => assert.fail("WhatsApp navigation should not be blocked"),
   }
 
-  installContactConversionTracking(document, gtag, navigate)
+  installContactConversionTracking(document, () => gtag, navigate, undefined, () => true)
   clickHandler(event)
 
   assert.deepEqual(calls, [
@@ -54,9 +54,10 @@ test("waits briefly for the Ads conversion before opening a telephone link", () 
 
   installContactConversionTracking(
     document,
-    (...args) => calls.push(args),
+    () => (...args) => calls.push(args),
     (href) => destinations.push(href),
     (callback, delay) => { assert.equal(delay, 2500); fallback = callback },
+    () => true,
   )
   clickHandler(event)
 
@@ -88,12 +89,35 @@ test("continues a phone call if the tag never returns its conversion callback", 
 
   installContactConversionTracking(
     document,
-    () => {},
+    () => () => {},
     (href) => destinations.push(href),
     (callback) => { fallback = callback },
+    () => true,
   )
   clickHandler(event)
   fallback()
 
   assert.deepEqual(destinations, ["tel:+5561981620367"])
+})
+
+test("does not delay a phone call if consent exists but no Google tag is active", () => {
+  let clickHandler
+  const document = { addEventListener: (_type, handler) => { clickHandler = handler } }
+  let prevented = false
+  const link = { href: "tel:+5561981620367", target: "" }
+  const event = {
+    target: { closest: () => link },
+    preventDefault: () => { prevented = true },
+  }
+
+  installContactConversionTracking(
+    document,
+    () => undefined,
+    () => assert.fail("native phone navigation should continue"),
+    () => {},
+    () => true,
+  )
+  clickHandler(event)
+
+  assert.equal(prevented, false)
 })
