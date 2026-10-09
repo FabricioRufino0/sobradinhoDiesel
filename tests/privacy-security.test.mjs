@@ -188,6 +188,17 @@ test("Cloudflare static assets publish all seven security headers and a restrict
   assert.doesNotMatch(headers, /script-src[^\r\n]*'unsafe-inline'/i)
 })
 
+test("Cloudflare responses prevent automatic edge injection of the RUM beacon", async () => {
+  const headers = await readOrEmpty(join(projectRoot, "public/_headers"))
+
+  const htmlCachePolicy = /Cache-Control:\s*public,\s*max-age=0,\s*must-revalidate,\s*no-transform/i
+
+  assert.match(headers, /^\/\r?\n\s+Cache-Control:.*no-transform/im)
+  assert.match(headers, /^\/\*\.html\r?\n\s+Cache-Control:.*no-transform/im)
+  assert.doesNotMatch(headers, /^\/\*\r?\n\s+Cache-Control:.*no-transform/im)
+  assert.match(headers, htmlCachePolicy)
+})
+
 test("CSP allows Google Analytics and Ads resources when consent is granted", async () => {
   const headers = await readOrEmpty(join(projectRoot, "public/_headers"))
   const csp = headers.match(/Content-Security-Policy:\s*([^\r\n]+)/i)?.[1]
