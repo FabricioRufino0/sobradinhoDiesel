@@ -12,9 +12,45 @@ Os serviços explicam que a oficina testa a peça antes do reparo, mostra o resu
 
 ## SEO e publicação
 
-O site está publicado em `https://sobradinhodiesel.com.br`. Canonical, Open Graph e dados estruturados usam esse endereço. `public/sitemap.xml` lista a home; `public/robots.txt` permite rastreamento e aponta para o sitemap; `public/llms.txt` resume informações confirmadas e liga para a home. O domínio consta como propriedade no Google Search Console.
+O site está publicado em `https://sobradinhodiesel.com.br`. Canonical, Open Graph e dados estruturados usam esse endereço. `public/sitemap.xml` lista a home; `public/robots.txt` permite rastreamento geral e para `OAI-SearchBot`; `public/llms.txt` resume informações confirmadas. A home aponta para `llms.txt` e para sua representação Markdown em `index.md`. `public/AGENTS.md` também oferece contexto factual para agentes. Esses arquivos descrevem o site; não criam uma API ou um agente invocável.
 
-Para acompanhar rastreamento e indexação, consulte a propriedade do domínio no Google Search Console e verifique o sitemap em `https://sobradinhodiesel.com.br/sitemap.xml`. Confira também se o perfil da empresa no Google usa o mesmo nome, telefone e endereço. A presença nos resultados depende da indexação e não é garantida por arquivos ou marcação estruturada.
+### Resultado da auditoria pública (09/10/2026)
+
+A auditoria SEO/GEO do site publicado terminou com **95/100, zero falhas, 35 avisos e 12 itens não medidos**. Mobile, GEO, Legal, JavaScript, Técnico e Core Web Vitals de laboratório ficaram em 100; Segurança ficou em 97. “Zero falhas” significa que os critérios de falha dessa execução passaram, não que todos os avisos ou indicadores de campo foram eliminados.
+
+Remediações incluídas no repositório:
+
+- Corrigida a rolagem horizontal em telas estreitas e publicada uma página 404 própria que responde com status 404.
+- Adicionadas as referências da home a `llms.txt` e `index.md`, além de `index.md` e `AGENTS.md` públicos.
+- Corrigida a tag de Analytics para GA4 `G-Q0ET20C21G`. As tags GA4 e Google Ads e o registro de cliques de contato só são carregados/registrados depois do consentimento explícito do visitante. Sem consentimento, a navegação continua normalmente sem disparar a conversão.
+- Adicionadas políticas de segurança em `public/_headers`: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, COOP, Referrer-Policy e Permissions-Policy.
+- Impedida a injeção automática do beacon de Cloudflare Web Analytics nas respostas HTML com `Cache-Control: ... no-transform`, inclusive na resposta 404. Para `/assets/*`, esse cabeçalho é removido e a regra de cache estático volta ao padrão. A verificação local com Wrangler e a verificação pública confirmaram esse comportamento. A configuração da conta Cloudflare não foi alterada; a proteção está aplicada às respostas do site.
+- Incluídas perguntas frequentes curtas, limitadas a informações confirmadas pela oficina.
+
+### Avisos e limites ainda conhecidos
+
+- Os avisos restantes incluem a proporção de texto/HTML (10,4%), recomendações de metadados, imagens/cache/compactação, links, sinais de confiança, dados estruturados e acessibilidade. HSTS ainda não usa `includeSubDomains` nem `preload`, e a política não inclui Trusted Types. Tratar cada recomendação conforme compatibilidade e evidência, sem enfraquecer a CSP ou inventar informações comerciais.
+- O sitemap não declara `<lastmod>` porque não há uma data de alteração por URL mantida com precisão. Não preencher com datas artificiais.
+- O checker ainda sugere um manifesto em `/.well-known`; o site não expõe uma API ou agente que justifique publicar um Agent Card/MCP manifest.
+- Os 12 itens “não medidos” incluem INP real. INP requer dados de campo (CrUX ou RUM); uma execução de laboratório não o confirma. O beacon de Cloudflare RUM continua bloqueado nas respostas HTML; CrUX ou uma alternativa de RUM compatível com consentimento podem fornecer dados de campo.
+- A propriedade do domínio existe no Google Search Console. Não se registrou como concluído o envio do sitemap nem uma faixa de datas para métricas de desempenho; consultar a interface antes de relatar posições, cliques ou cobertura.
+- Na propriedade GA4 não havia dados recebidos nas 48 horas observadas. Como a coleta depende de consentimento, validar em tempo real depois de publicar e aceitar Analytics no banner. No Google Ads, a conversão de contato estava ativa e primária, mas sem conversões no período de sete dias selecionado na inspeção.
+
+Commits da implementação SEO/GEO e privacidade enviados para `main` até a auditoria: `6e292e9`, `44615de`, `0c35d8b`, `5d3f8eb`, `f18099f`, `b55b4e6`, `239fede` e `0e15f6b`. Consulte o histórico Git para os títulos completos.
+
+Para acompanhar rastreamento e indexação, consulte a propriedade do domínio no Google Search Console e verifique `https://sobradinhodiesel.com.br/sitemap.xml`. Confira também se o Perfil da Empresa no Google usa o mesmo nome, telefone e endereço. A presença nos resultados depende da indexação e não é garantida por arquivos ou marcação estruturada.
+
+### Verificações locais
+
+```sh
+npm install
+npm run dev
+npm run build
+npm test
+npm run preview
+```
+
+`npm run build` verifica TypeScript, gera `dist/` e pré-renderiza a home. `npm test` valida conteúdo, links, metadados e arquivos de publicação. A prévia de produção é servida por `npm run preview`.
 
 ## Imagens, marcas e fontes
 
