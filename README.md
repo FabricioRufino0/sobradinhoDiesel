@@ -12,9 +12,9 @@ Os serviços explicam que a oficina testa a peça antes do reparo, mostra o resu
 
 ## SEO e publicação
 
-O domínio escolhido é `https://sobradinhodiesel.com.br`. Canonical, Open Graph e dados estruturados usam esse endereço. `public/sitemap.xml` lista a home; `public/robots.txt` permite rastreamento e aponta para o sitemap; `public/llms.txt` resume informações confirmadas e liga para a home. DNS, hospedagem, HTTPS e redirecionamentos ainda precisam ser configurados para publicar o domínio.
+O site está publicado em `https://sobradinhodiesel.com.br`. Canonical, Open Graph e dados estruturados usam esse endereço. `public/sitemap.xml` lista a home; `public/robots.txt` permite rastreamento e aponta para o sitemap; `public/llms.txt` resume informações confirmadas e liga para a home. O domínio consta como propriedade no Google Search Console.
 
-Depois de apontar o DNS e publicar com HTTPS, cadastre o domínio no Google Search Console e no Bing Webmaster Tools, envie `https://sobradinhodiesel.com.br/sitemap.xml` e inspecione a URL inicial. Verifique também se o perfil da empresa no Google usa o mesmo nome, telefone e endereço. A presença nos resultados depende da indexação e não é garantida por arquivos ou marcação estruturada.
+Para acompanhar rastreamento e indexação, consulte a propriedade do domínio no Google Search Console e verifique o sitemap em `https://sobradinhodiesel.com.br/sitemap.xml`. Confira também se o perfil da empresa no Google usa o mesmo nome, telefone e endereço. A presença nos resultados depende da indexação e não é garantida por arquivos ou marcação estruturada.
 
 ## Imagens, marcas e fontes
 
